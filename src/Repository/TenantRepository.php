@@ -32,6 +32,8 @@ class TenantRepository extends EntityRepository
     }
 
     /**
+     * TODO:: rewrite for use one SQL Query in the feature
+     *
      * @return array
      */
     public function getTenantForSendNotification(): array

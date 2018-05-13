@@ -17,6 +17,8 @@ use Dykyi\ValueObject\PhoneNumber;
 class Application extends AbstractApplication
 {
     /**
+     * TODO:: Also we case use command pattern
+     *
      * @param Tenant $tenant
      * @param Template $template
      * @throws \InvalidArgumentException
