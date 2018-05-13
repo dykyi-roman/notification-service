@@ -50,7 +50,7 @@ class NotificationSubscriber implements EventSubscriberInterface
     {
         //TODO:: You can use here AMQP protocol for send
         $notification = new NotificationService(new EmailDriver());
-        $notification->execute($event->getTenant(), $event->getTemplate());
+        $notification->execute($event->getNotification());
     }
 
 
@@ -62,7 +62,7 @@ class NotificationSubscriber implements EventSubscriberInterface
     {
         //TODO:: You can use here AMQP protocol for send
         $notification = new NotificationService(new SmsDriver());
-        $notification->execute($event->getTenant(), $event->getTemplate());
+        $notification->execute($event->getNotification());
     }
 
 }

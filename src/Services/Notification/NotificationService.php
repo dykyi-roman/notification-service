@@ -2,6 +2,7 @@
 
 namespace Dykyi\Services\Notification;
 
+use Dykyi\DTO\NotificationDTO;
 use Dykyi\Entity\Template;
 use Dykyi\Entity\Tenant;
 use Dykyi\Services\Exception\ServiceNotDetectedException;
@@ -30,15 +31,13 @@ class NotificationService
     }
 
     /**
-     * @param Tenant $tenant
-     * @param Template $template
-     * @internal param int $id
+     * @param NotificationDTO $notification
      */
-    public function execute(Tenant $tenant, Template $template): void
+    public function execute(NotificationDTO $notification): void
     {
         foreach ($this->getDrivers() as $driver) {
             //TODO:: prepare for send
-            $driver->send($template);
+            $driver->send($notification);
         }
     }
 

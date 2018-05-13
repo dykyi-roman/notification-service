@@ -2,10 +2,13 @@
 
 namespace Dykyi;
 
+use Dykyi\DTO\NotificationDTO;
 use Dykyi\Entity\Template;
 use Dykyi\Entity\Tenant;
 use Dykyi\Event\SendEmilEvent;
 use Dykyi\Event\SendSmsEvent;
+use Dykyi\ValueObject\EmailAddress;
+use Dykyi\ValueObject\PhoneNumber;
 
 /**
  * Class Application
@@ -16,11 +19,13 @@ class Application extends AbstractApplication
     /**
      * @param Tenant $tenant
      * @param Template $template
+     * @throws \InvalidArgumentException
      */
     private function sendEmailToTenant(Tenant $tenant, Template $template): void
     {
         if ($tenant->getConfig()->isNeedEmailSend()) {
-            $event = new SendEmilEvent($tenant, $template);
+            $notification = new NotificationDTO(new EmailAddress($tenant->getEmail()), $template->getText());
+            $event = new SendEmilEvent($notification);
             $this->getDispatcher()->dispatch(SendEmilEvent::NAME, $event);
         }
     }
@@ -28,11 +33,13 @@ class Application extends AbstractApplication
     /**
      * @param Tenant $tenant
      * @param Template $template
+     * @throws \InvalidArgumentException
      */
     private function sendSmsToTenant(Tenant $tenant, Template $template): void
     {
         if ($tenant->getConfig()->isNeedSmsSend()) {
-            $event = new SendSmsEvent($tenant, $template);
+            $notification = new NotificationDTO(new PhoneNumber($tenant->getPhone()), $template->getText());
+            $event = new SendSmsEvent($notification);
             $this->getDispatcher()->dispatch(SendSmsEvent::NAME, $event);
         }
     }

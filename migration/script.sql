@@ -58,6 +58,8 @@ CREATE TABLE `tenant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
+  `phone` varchar(32) NULL,
+  `email` varchar(80) NULL,
   `created_at` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)

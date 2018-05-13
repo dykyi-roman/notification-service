@@ -2,8 +2,7 @@
 
 namespace Dykyi\Event;
 
-use Dykyi\Entity\Template;
-use Dykyi\Entity\Tenant;
+use Dykyi\DTO\NotificationDTO;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -12,37 +11,25 @@ use Symfony\Component\EventDispatcher\Event;
  */
 abstract class AbstractSendEvent extends Event
 {
-    /** @var Tenant */
-    private $tenant;
-
-    /** @var Template  */
-    private $template;
+    /** @var NotificationDTO */
+    private $notification;
 
     /**
-     * SendEmilEvent constructor.
-     * @param Tenant $tenant
-     * @param Template $template
+     * AbstractSendEvent constructor.
+     * @param NotificationDTO $notification
      */
-    public function __construct(Tenant $tenant, Template $template)
+    public function __construct(NotificationDTO $notification)
     {
-        $this->tenant = $tenant;
-        $this->template = $template;
+        $this->notification = $notification;
     }
 
     /**
-     * @return Tenant
+     * @return NotificationDTO
      */
-    public function getTenant(): Tenant
+    public function getNotification(): NotificationDTO
     {
-        return $this->tenant;
+        return $this->notification;
     }
 
-    /**
-     * @return Template
-     */
-    public function getTemplate(): Template
-    {
-        return $this->template;
-    }
 
 }

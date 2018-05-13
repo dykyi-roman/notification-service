@@ -40,6 +40,16 @@ class Tenant
     private $updatedAt;
 
     /**
+     * @Column(type="string", name="phone")
+     */
+    private $phone;
+
+    /**
+     * @Column(type="string", name="email")
+     */
+    private $email;
+
+    /**
      * @OneToMany(targetEntity="Invoice", mappedBy="tenant")
      */
     private $invoice;
@@ -131,7 +141,36 @@ class Tenant
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
 
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
 }
