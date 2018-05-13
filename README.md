@@ -11,7 +11,29 @@ Each client has their own configuration for three types of auto reminders:
 
 ## How it's works
 
-....
+We deal with tenants and leases. 
+One tenant, can have one or more leases. 
+One tenant have one invoice for one lesses.
+Tenant have a settings in account for set (on/off) sms or email notification. Also, he can choose one of the ways reminder: (Early, Due, Late).
+
+Our system send auto reminder to SMS and Email. 
+The system should work automatically, so the entire process will run in the cron. 
+Cron is setup to run every day at 9АM.
+The system looks for tenants in the database who need to send a reminder message:
++ invoice status is active.
++ check three conditions types of reminders
++ grouped by end_date and last name
+
+### Example: 
+Suppose that today 01.04.2018. 
+Tenant X have a 2 lease (start=27.02.2018 end 27.03.2018) and 1 lease (start=01.03.2018 end 01.04.2018)
+System must send 2-notification. 1-Early for (2 leases) and 1-due for (1 leas).
+
+If the system was sent early message for tenant one time, and his pay for a lease before take due message, we not remove invoice and not update date, we just set status "finish" and create new invoice.
++ the system not send a message again
++ save event history
+
+If the system was sent Late message and tenant not pay. we also set status "block". and not create new invoice. 
 
 ## Usage package
 + monolog
